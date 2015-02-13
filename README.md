@@ -1,4 +1,4 @@
 # ToDoList
 made with Qt for study purposes
 
-Qt Strandkonyv, page 39
+Qt Strandkonyv, page 41

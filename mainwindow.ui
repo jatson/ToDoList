@@ -22,14 +22,24 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QLabel" name="label">
+           <widget class="QLabel" name="jobLabel">
             <property name="text">
-             <string>feladat:</string>
+             <string>Feladat:</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QLineEdit" name="jobEdit"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="categoryLabel">
+            <property name="text">
+             <string>Kategória:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="categoryEdit"/>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout">
@@ -156,6 +166,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>jobEdit</tabstop>
+  <tabstop>categoryEdit</tabstop>
+  <tabstop>addButton</tabstop>
+  <tabstop>removeButton</tabstop>
+  <tabstop>listWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

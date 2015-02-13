@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->jobEdit, SIGNAL(returnPressed()),
             ui->addButton, SLOT(click()));
+    connect(ui->categoryEdit, SIGNAL(returnPressed()),
+            ui->addButton, SLOT(click()));
 
     m_fileOperator = new FileOperator(NULL);
 #ifdef DEBUG
@@ -27,20 +29,26 @@ void MainWindow::on_addButton_clicked()
 #ifdef DEBUG
     qDebug() << "addButton clicked";
 #endif
-    if(!ui->jobEdit->text().isEmpty())
+    if(!ui->jobEdit->text().isEmpty() && !ui->categoryEdit->text().isEmpty())
     {
         ui->listWidget->addItem(ui->jobEdit->text().simplified());
-        tasks.append(QSharedPointer<Task>(new Task(ui->jobEdit->text(), "default category")));
+        tasks.append(QSharedPointer<Task>(new Task(ui->jobEdit->text().simplified(), ui->categoryEdit->text().simplified())));
 #ifdef DEBUG
-        qDebug() << "jobEdit was not empty: " << ui->jobEdit->text();
+        qDebug() << "jobEdit was not empty: " << ui->jobEdit->text().simplified();
 #endif
         ui->jobEdit->clear();
+        ui->categoryEdit->clear();
         ui->jobEdit->setFocus();
-
     }
-#ifdef DEBUG
-    else qDebug() << "jobEdit was empty";
-#endif
+    else
+    {
+        QSharedPointer<QMessageBox> mb(new QMessageBox(
+                    QMessageBox::Critical,
+                    "Hiba",
+                    "Ki kell töltened mindkettő sort!"));
+        mb->exec();
+        ui->jobEdit->setFocus();
+    }
 }
 
 void MainWindow::on_removeButton_clicked()
