@@ -2,7 +2,16 @@
 
 FileOperator::FileOperator(QWidget *parent) : QWidget(parent)
 {
+    if(m_settings.contains("GeneralSettings/ListFileName"))
+    {
+        m_fileName = m_settings.value("GeneralSettings/ListFileName").toString();
 
+#ifdef DEBUG
+        qDebug() << "variable m_fileName: " << m_fileName;
+#endif
+
+    }
+    else m_fileName = "";
 }
 
 FileOperator::~FileOperator()
@@ -12,16 +21,16 @@ FileOperator::~FileOperator()
 
 void FileOperator::save(QList<QSharedPointer<Task> > list)
 {
-    if(_fileName.isEmpty()) saveAs(list);
-    else performSaveOperation(list, _fileName);
+    if(m_fileName.isEmpty()) saveAs(list);
+    else performSaveOperation(list, m_fileName);
 }
 
 void FileOperator::saveAs(QList<QSharedPointer<Task> > list)
 {
     QString path = QDir::homePath();
-    if(_fileName != "")
+    if(m_fileName != "")
     {
-        QFileInfo info(_fileName);
+        QFileInfo info(m_fileName);
         path = info.absolutePath();
     }
 
@@ -42,25 +51,42 @@ void FileOperator::saveAs(QList<QSharedPointer<Task> > list)
 
 QList<QSharedPointer<Task> > FileOperator::open()
 {
-    QString path = QDir::homePath();
-    if(_fileName != "")
+    QString fn;
+
+    if(m_fileName == "")
     {
-        QFileInfo info(_fileName);
+        QString path = QDir::homePath();
+        QFileInfo info(m_fileName);
         path = info.absolutePath();
+
+        fn = QFileDialog::getOpenFileName(
+                    this,
+                    "Fájl megnyitása...",
+                    path,
+                    "ToDoList-fájlok (*.tdlst);;Szövegfájlok (*.txt)");
+
     }
+    else fn = m_fileName;
 
-    QString fn = QFileDialog::getOpenFileName(
-                this,
-                "Fájl megnyitása...",
-                path,
-                "ToDoList-fájlok (*.tdlst);;Szövegfájlok (*.txt)");
-
+#ifdef DEBUG
+        qDebug() << "Open: " << fn;
+#endif
 
     QList<QSharedPointer<Task> > list;
     if(!fn.isEmpty()) list = performLoadOperation(fn);
     return list;
 }
 
+
+QString FileOperator::fileName() const
+{
+    return m_fileName;
+}
+
+void FileOperator::setFileName(const QString &fileName)
+{
+    m_fileName = fileName;
+}
 bool FileOperator::performSaveOperation(QList<QSharedPointer<Task> > list, QString fileName)
 {
     QFile file(fileName);
@@ -73,7 +99,14 @@ bool FileOperator::performSaveOperation(QList<QSharedPointer<Task> > list, QStri
         if(file.error() == 0) success = true;
     }
 
-    if(success) _fileName = fileName;
+    if(success)
+    {
+        m_fileName = fileName;
+        m_settings.setValue("GeneralSettings/ListFileName", fileName);
+#ifdef DEBUG
+        qDebug() << "Setting GeneralSettings/ListFileName to " << m_fileName;
+#endif
+    }
     else
     {
         QMessageBox *mb = new QMessageBox(
@@ -87,7 +120,6 @@ bool FileOperator::performSaveOperation(QList<QSharedPointer<Task> > list, QStri
 #ifdef DEBUG
     qDebug() << "Saving to: " << fileName;
 #endif
-    Q_UNUSED(list);
 
     return success;
 }
@@ -95,6 +127,9 @@ bool FileOperator::performSaveOperation(QList<QSharedPointer<Task> > list, QStri
 QList<QSharedPointer<Task> > FileOperator::performLoadOperation(QString fileName)
 {
     QList<QSharedPointer<Task> > list;
+#ifdef DEBUG
+        qDebug() << "PerformLoad: " << fileName;
+#endif
     QFile file(fileName);
     bool success = false;
 
@@ -109,7 +144,11 @@ QList<QSharedPointer<Task> > FileOperator::performLoadOperation(QString fileName
         if(file.error() == 0) success = true;
     }
 
-    if(success) _fileName = fileName;
+#ifdef DEBUG
+        qDebug() << "PerformLoad success: " << success;
+#endif
+
+    if(success) m_fileName = fileName;
     else
     {
         QMessageBox *mb = new QMessageBox(
@@ -125,6 +164,6 @@ QList<QSharedPointer<Task> > FileOperator::performLoadOperation(QString fileName
 
 void FileOperator::newList()
 {
-    _fileName = "";
-
+    m_fileName = "";
 }
+

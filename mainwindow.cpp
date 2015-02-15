@@ -5,6 +5,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    /* Init for saving programsettings (registry in windows) */
+    QCoreApplication::setOrganizationName("Barni Qt tanulmánya");
+    QCoreApplication::setOrganizationDomain("example.com");
+    QCoreApplication::setApplicationName("ToDoList");
+
     ui->setupUi(this);
 
 
@@ -14,9 +19,13 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->addButton, SLOT(click()));
 
     m_fileOperator = new FileOperator(NULL);
+    if(m_fileOperator->fileName() != "") on_actionOpen_triggered();
+
     m_copmleterModel = new QStringListModel(this);
     m_completer = new QCompleter(m_copmleterModel, this);
     ui->categoryEdit->setCompleter(m_completer);
+
+
 
 #ifdef DEBUG
     QObject::dumpObjectInfo();

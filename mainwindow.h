@@ -6,7 +6,7 @@
 #include <QListWidgetItem>
 #include <QCompleter>           /* The QCompleter class provides completions based on an item model. */
 #include <QStringListModel>     /* The QStringListModel class provides a model that supplies strings to views. */
-
+#include <QCoreApplication>     /* The QCoreApplication class provides an event loop for console Qt applications. */
 
 #include "fileoperator.h"
 
@@ -52,6 +52,7 @@ private:
     QCompleter *m_completer;
     QStringListModel *m_copmleterModel;
     QStringList categories();
+    QSettings m_settings;
 
 };
 
