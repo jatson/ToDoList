@@ -4,6 +4,10 @@
 #include <QMainWindow>
 #include <QStringList>
 #include <QListWidgetItem>
+#include <QCompleter>           /* The QCompleter class provides completions based on an item model. */
+#include <QStringListModel>     /* The QStringListModel class provides a model that supplies strings to views. */
+
+
 #include "fileoperator.h"
 
 #ifdef DEBUG
@@ -39,10 +43,15 @@ private slots:
 
     void on_modifyButton_clicked();
 
+    void appFocusChanged(QWidget *old, QWidget *now);
+
 private:
     Ui::MainWindow *ui;
     FileOperator *m_fileOperator;
-    QList<QSharedPointer<Task> > tasks;
+    QList<QSharedPointer<Task> > m_tasks;
+    QCompleter *m_completer;
+    QStringListModel *m_copmleterModel;
+    QStringList categories();
 
 };
 
