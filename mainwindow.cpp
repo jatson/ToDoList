@@ -91,3 +91,33 @@ void MainWindow::on_actionOpen_triggered()
         while(ji.hasNext()) ui->listWidget->addItem(ji.next()->job());
     }
 }
+
+void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
+{
+    int idx = ui->listWidget->row(item);
+    ui->jobEdit->setText(tasks.at(idx)->job());
+    ui->categoryEdit->setText(tasks.at(idx)->category());
+}
+
+void MainWindow::on_modifyButton_clicked()
+{
+    QString jobTxt = ui->jobEdit->text().simplified();
+    QString categoryTxt = ui->categoryEdit->text().simplified();
+    if(!jobTxt.isEmpty() && !categoryTxt.isEmpty())
+    {
+        int idx = ui->listWidget->currentRow();
+        tasks[idx]->setJob(jobTxt);
+        tasks[idx]->setCategory(categoryTxt);
+
+        ui->listWidget->currentItem()->setText(jobTxt);
+    }
+    else
+    {
+        QSharedPointer<QMessageBox> mb(new QMessageBox(
+                    QMessageBox::Critical,
+                    "Hiba",
+                    "Nem módosíthatsz üresre. Ha ezt szeretnéd használd a törlés gombot!"));
+        mb->exec();
+        ui->jobEdit->setFocus();
+    }
+}

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QStringList>
+#include <QListWidgetItem>
 #include "fileoperator.h"
 
 #ifdef DEBUG
@@ -33,6 +34,10 @@ private slots:
     void on_actionExit_triggered();
 
     void on_actionOpen_triggered();
+
+    void on_listWidget_itemClicked(QListWidgetItem *item);
+
+    void on_modifyButton_clicked();
 
 private:
     Ui::MainWindow *ui;
