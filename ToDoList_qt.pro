@@ -15,10 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     fileoperator.cpp \
-    task.cpp
+    task.cpp \
+    diagramcreator.cpp
 
 HEADERS  += mainwindow.h \
     fileoperator.h \
-    task.h
+    task.h \
+    diagramcreator.h \
+    defines.h
 
 FORMS    += mainwindow.ui

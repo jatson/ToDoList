@@ -15,12 +15,7 @@
 #include <QSettings>        /* The QSettings class provides persistent platform-independent application settings. */
 
 #include "task.h"
-
-#define DEBUG               /* Debug mode if defined; otherwise normal mode -> no debug messages to the output */
-
-#ifdef DEBUG
-#include <QDebug>           /* Class for debugging */
-#endif
+#include "defines.h"
 
 class FileOperator : public QWidget
 {

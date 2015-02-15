@@ -17,15 +17,18 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->addButton, SLOT(click()));
     connect(ui->categoryEdit, SIGNAL(returnPressed()),
             ui->addButton, SLOT(click()));
+    connect(ui->searchEdit, SIGNAL(textChanged(QString)),
+            this, SLOT(showJobsHavingCategory(QString)));
 
     m_fileOperator = new FileOperator(NULL);
     if(m_fileOperator->fileName() != "") on_actionOpen_triggered();
 
     m_copmleterModel = new QStringListModel(this);
     m_completer = new QCompleter(m_copmleterModel, this);
+    m_diagramCreator = new DiagramCreator(this);
+    ui->graphicsView->setScene(m_diagramCreator->scene());
     ui->categoryEdit->setCompleter(m_completer);
-
-
+    ui->searchEdit->setCompleter(m_completer);
 
 #ifdef DEBUG
     QObject::dumpObjectInfo();
@@ -37,6 +40,7 @@ MainWindow::~MainWindow()
     delete ui;
     delete m_fileOperator;
     delete m_completer;
+    delete m_diagramCreator;
 }
 
 void MainWindow::on_addButton_clicked()
@@ -140,7 +144,7 @@ void MainWindow::on_modifyButton_clicked()
 void MainWindow::appFocusChanged(QWidget *old, QWidget *now)
 {
     Q_UNUSED(old); // make compiler happy
-    if(now == ui->categoryEdit) m_copmleterModel->setStringList(categories());
+    if(now == ui->categoryEdit || now == ui->searchEdit) m_copmleterModel->setStringList(categories());
 #ifdef DEBUG
     qDebug() << "focus changed from " << old << " to " << now;
 #endif
@@ -156,4 +160,24 @@ QStringList MainWindow::categories()
         if(!list.contains(category)) list << category;
     }
     return list;
+}
+
+void MainWindow::showJobsHavingCategory(const QString &text)
+{
+#ifdef DEBUG
+    qDebug() << "editingFinished ";
+#endif
+    ui->listWidget_2->clear();
+
+    for (int i = 0; i < m_tasks.size(); ++i) if(m_tasks[i]->category() == text) ui->listWidget_2->addItem(m_tasks[i]->job());
+}
+
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+    if(index == 2)
+    {
+
+        //ui->graphicsView->setScene(m_diagramCreator->scene());
+        m_diagramCreator->drawDiagram(m_tasks);
+    }
 }

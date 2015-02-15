@@ -9,10 +9,8 @@
 #include <QCoreApplication>     /* The QCoreApplication class provides an event loop for console Qt applications. */
 
 #include "fileoperator.h"
-
-#ifdef DEBUG
-#include <QDebug>
-#endif
+#include "diagramcreator.h"
+#include "defines.h"
 
 namespace Ui {
 class MainWindow;
@@ -45,14 +43,18 @@ private slots:
 
     void appFocusChanged(QWidget *old, QWidget *now);
 
+    void showJobsHavingCategory(const QString &text);
+
+    void on_tabWidget_currentChanged(int index);
+
 private:
     Ui::MainWindow *ui;
     FileOperator *m_fileOperator;
+    DiagramCreator *m_diagramCreator;
     QList<QSharedPointer<Task> > m_tasks;
     QCompleter *m_completer;
     QStringListModel *m_copmleterModel;
     QStringList categories();
-    QSettings m_settings;
 
 };
 
