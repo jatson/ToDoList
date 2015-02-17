@@ -22,7 +22,7 @@
       </property>
       <widget class="QWidget" name="mainTab">
        <attribute name="title">
-        <string>&amp;Todo List</string>
+        <string>&amp;Teendők</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
@@ -34,7 +34,7 @@
               <item>
                <widget class="QLabel" name="jobLabel">
                 <property name="text">
-                 <string>Job:</string>
+                 <string>Feladat:</string>
                 </property>
                </widget>
               </item>
@@ -44,7 +44,7 @@
               <item>
                <widget class="QLabel" name="categoryLabel">
                 <property name="text">
-                 <string>Category:</string>
+                 <string>Kategória:</string>
                 </property>
                </widget>
               </item>
@@ -58,21 +58,21 @@
                   <item>
                    <widget class="QPushButton" name="addButton">
                     <property name="text">
-                     <string>&amp;Add Job</string>
+                     <string>&amp;Feladat felvétele</string>
                     </property>
                    </widget>
                   </item>
                   <item>
                    <widget class="QPushButton" name="removeButton">
                     <property name="text">
-                     <string>&amp;Remove Selected</string>
+                     <string>Kijelölt törlése</string>
                     </property>
                    </widget>
                   </item>
                   <item>
                    <widget class="QPushButton" name="modifyButton">
                     <property name="text">
-                     <string>&amp;Modify Selected</string>
+                     <string>Módosítás</string>
                     </property>
                    </widget>
                   </item>
@@ -123,7 +123,7 @@
       </widget>
       <widget class="QWidget" name="searchTab">
        <attribute name="title">
-        <string>S&amp;earch</string>
+        <string>&amp;Keresés</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
@@ -133,7 +133,7 @@
             <item>
              <widget class="QLabel" name="searchLabel">
               <property name="text">
-               <string>Category:</string>
+               <string>Kategória:</string>
               </property>
              </widget>
             </item>
@@ -164,7 +164,7 @@
       </widget>
       <widget class="QWidget" name="graphTab">
        <attribute name="title">
-        <string>&amp;Graphic</string>
+        <string>&amp;Grafikon</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
@@ -191,7 +191,7 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Fájl</string>
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
@@ -199,20 +199,11 @@
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuAbout">
-    <property name="title">
-     <string>Others</string>
-    </property>
-    <addaction name="actionSettings"/>
-    <addaction name="separator"/>
-    <addaction name="actionAbout"/>
-   </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuAbout"/>
   </widget>
   <action name="actionSave">
    <property name="text">
-    <string>Save</string>
+    <string>Mentés</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -220,7 +211,7 @@
   </action>
   <action name="actionSaveAs">
    <property name="text">
-    <string>Save As...</string>
+    <string>Mentés másként...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
@@ -228,7 +219,7 @@
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>Exit</string>
+    <string>Kilépés</string>
    </property>
    <property name="toolTip">
     <string>Kilépés</string>
@@ -239,20 +230,10 @@
   </action>
   <action name="actionOpen">
    <property name="text">
-    <string>Open</string>
+    <string>Megnyitás</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
-   </property>
-  </action>
-  <action name="actionSettings">
-   <property name="text">
-    <string>Settings</string>
-   </property>
-  </action>
-  <action name="actionAbout">
-   <property name="text">
-    <string>About</string>
    </property>
   </action>
  </widget>

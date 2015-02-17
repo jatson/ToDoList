@@ -36,9 +36,9 @@ void FileOperator::saveAs(QList<QSharedPointer<Task> > list)
 
     QString fn = QFileDialog::getSaveFileName(
                 this,
-                "Mentés másként...",
+                tr("Save As..."),
                 path,
-                "ToDoList-fájlok (*tdlst);;Szövegfájlok (*txt);;Minden fájl (*)");
+                tr("ToDoList files (*.tdlst);;Text files (*.txt);;All files (*.*)"));
 
     if(!fn.isEmpty())
     {
@@ -61,9 +61,9 @@ QList<QSharedPointer<Task> > FileOperator::open()
 
         fn = QFileDialog::getOpenFileName(
                     this,
-                    "Fájl megnyitása...",
+                    tr("Open File..."),
                     path,
-                    "ToDoList-fájlok (*.tdlst);;Szövegfájlok (*.txt)");
+                    tr("ToDoList files (*.tdlst);;Text files (*.txt)"));
 
     }
     else fn = m_fileName;
@@ -111,8 +111,8 @@ bool FileOperator::performSaveOperation(QList<QSharedPointer<Task> > list, QStri
     {
         QMessageBox *mb = new QMessageBox(
                     QMessageBox::Critical,
-                    "Nem sikerült a mentés",
-                    "Valami hiba történt a file mentése közben (talán írásvédett a file...?)!");
+                    tr("Unable To Save"),
+                    tr("Something happened while saving the file. Maybe it's write protected..."));
         mb->exec();
         delete mb;
     }
@@ -153,8 +153,8 @@ QList<QSharedPointer<Task> > FileOperator::performLoadOperation(QString fileName
     {
         QMessageBox *mb = new QMessageBox(
                     QMessageBox::Critical,
-                    "Nem sikerült a megnyitás",
-                    "Valami hiba történt a file megynitása közben. Nem lehet olvasni a file-t!");
+                    tr("Unable To Open"),
+                    tr("Unable to read the file!"));
         mb->exec();
         delete mb;
     }

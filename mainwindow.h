@@ -11,9 +11,11 @@
 #include "fileoperator.h"
 #include "diagramcreator.h"
 #include "defines.h"
+#include "aboutwindow.h"        /* My own class for About window */
 
-namespace Ui {
-class MainWindow;
+namespace Ui
+{
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -47,6 +49,8 @@ private slots:
 
     void on_tabWidget_currentChanged(int index);
 
+    void on_actionAbout_triggered();
+
 private:
     Ui::MainWindow *ui;
     FileOperator *m_fileOperator;
@@ -54,6 +58,7 @@ private:
     QList<QSharedPointer<Task> > m_tasks;
     QCompleter *m_completer;
     QStringListModel *m_copmleterModel;
+    AboutWindow *m_aboutWindow;
     QStringList categories();
 
 };

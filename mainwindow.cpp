@@ -41,6 +41,7 @@ MainWindow::~MainWindow()
     delete m_fileOperator;
     delete m_completer;
     delete m_diagramCreator;
+    if(m_aboutWindow) delete m_aboutWindow;
 }
 
 void MainWindow::on_addButton_clicked()
@@ -63,8 +64,8 @@ void MainWindow::on_addButton_clicked()
     {
         QSharedPointer<QMessageBox> mb(new QMessageBox(
                     QMessageBox::Critical,
-                    "Hiba",
-                    "Ki kell töltened mindkettő sort!"));
+                    tr("Error"),
+                    tr("You have to fill every lines!")));
         mb->exec();
         ui->jobEdit->setFocus();
     }
@@ -134,8 +135,8 @@ void MainWindow::on_modifyButton_clicked()
     {
         QSharedPointer<QMessageBox> mb(new QMessageBox(
                     QMessageBox::Critical,
-                    "Hiba",
-                    "Nem módosíthatsz üresre. Ha ezt szeretnéd használd a törlés gombot!"));
+                    tr("Error"),
+                    tr("You cannot leave any fields empty. If you want use delete function!")));
         mb->exec();
         ui->jobEdit->setFocus();
     }
@@ -174,10 +175,12 @@ void MainWindow::showJobsHavingCategory(const QString &text)
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
-    if(index == 2)
-    {
+    if(index == 2 && !m_tasks.isEmpty()) m_diagramCreator->drawDiagram(m_tasks);
+}
 
-        //ui->graphicsView->setScene(m_diagramCreator->scene());
-        m_diagramCreator->drawDiagram(m_tasks);
-    }
+void MainWindow::on_actionAbout_triggered()
+{
+    if(!m_aboutWindow) m_aboutWindow = new AboutWindow(this);
+    m_aboutWindow->show(); // modeless window running
+    //m_aboutWindow->exec(); // modal window running
 }

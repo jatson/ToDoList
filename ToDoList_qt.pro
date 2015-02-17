@@ -16,12 +16,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     fileoperator.cpp \
     task.cpp \
-    diagramcreator.cpp
+    diagramcreator.cpp \
+    aboutwindow.cpp
 
 HEADERS  += mainwindow.h \
     fileoperator.h \
     task.h \
     diagramcreator.h \
-    defines.h
+    defines.h \
+    aboutwindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    aboutwindow.ui
+
+TRANSLATIONS = ToDoList_hu_HU.ts

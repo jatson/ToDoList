@@ -16,7 +16,7 @@ void DiagramCreator::drawDiagram(QList<QSharedPointer<Task> > tasks)
     qDebug() << "drawDiagram function called...";
 #endif
 
-    qDeleteAll(m_scene->items()); // this line will force the diagram re-draw (delete the previos)
+    qDeleteAll(m_scene->items()); // this line will force the diagram re-draw (delete the previous)
 
     m_scene->setSceneRect(0,0,200,160);
 
@@ -40,22 +40,31 @@ void DiagramCreator::drawDiagram(QList<QSharedPointer<Task> > tasks)
     QMapIterator<int, QString> ji(bestCat);
     ji.toBack();
 
+
     float diagramUnit = 200 / ji.peekPrevious().key();
+    if(ji.hasPrevious())
+    {
+        m_rect1 = m_scene->addRect(0, 0, diagramUnit*ji.peekPrevious().key(), 50, Qt::NoPen, linearGradient);
+        m_category1 = m_scene->addText(ji.previous().value(), font);
+        m_category1->setPos(10,10);
+        m_category1->setDefaultTextColor(textColor);
+    }
 
-    m_rect1 = m_scene->addRect(0, 0, diagramUnit*ji.peekPrevious().key(), 50, Qt::NoPen, linearGradient);
-    m_category1 = m_scene->addText(ji.previous().value(), font);
-    m_category1->setPos(10,10);
-    m_category1->setDefaultTextColor(textColor);
+    if(ji.hasPrevious())
+    {
+        m_rect2 = m_scene->addRect(0, 55, diagramUnit*ji.peekPrevious().key(), 50, Qt::NoPen, linearGradient);
+        m_category2 = m_scene->addText(ji.previous().value(), font);
+        m_category2->setPos(10,65);
+        m_category2->setDefaultTextColor(textColor);
+    }
 
-    m_rect2 = m_scene->addRect(0, 55, diagramUnit*ji.peekPrevious().key(), 50, Qt::NoPen, linearGradient);
-    m_category2 = m_scene->addText(ji.previous().value(), font);
-    m_category2->setPos(10,65);
-    m_category2->setDefaultTextColor(textColor);
-
-    m_rect3 = m_scene->addRect(0, 110, diagramUnit*ji.peekPrevious().key(), 50, Qt::NoPen, linearGradient);
-    m_category3 = m_scene->addText(ji.previous().value(), font);
-    m_category3->setPos(10,120);
-    m_category3->setDefaultTextColor(textColor);
+    if(ji.hasPrevious())
+    {
+        m_rect3 = m_scene->addRect(0, 110, diagramUnit*ji.peekPrevious().key(), 50, Qt::NoPen, linearGradient);
+        m_category3 = m_scene->addText(ji.previous().value(), font);
+        m_category3->setPos(10,120);
+        m_category3->setDefaultTextColor(textColor);
+    }
 }
 
 QGraphicsScene *DiagramCreator::scene() const
