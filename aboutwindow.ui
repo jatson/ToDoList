@@ -74,5 +74,22 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AboutWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>205</x>
+     <y>274</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>334</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
