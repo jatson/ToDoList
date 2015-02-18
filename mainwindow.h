@@ -7,11 +7,13 @@
 #include <QCompleter>           /* The QCompleter class provides completions based on an item model. */
 #include <QStringListModel>     /* The QStringListModel class provides a model that supplies strings to views. */
 #include <QCoreApplication>     /* The QCoreApplication class provides an event loop for console Qt applications. */
+#include <QTimer>               /* The QTimer class provides repetitive and single-shot timers. */
 
 #include "fileoperator.h"
 #include "diagramcreator.h"
 #include "defines.h"
 #include "aboutwindow.h"        /* My own class for About window */
+#include "settingswindow.h"     /* My own class for Settings window */
 
 namespace Ui
 {
@@ -53,6 +55,8 @@ private slots:
 
     void on_actionNew_triggered();
 
+    void on_actionSettings_triggered();
+
 private:
     Ui::MainWindow *ui;
     FileOperator *m_fileOperator;
@@ -62,6 +66,8 @@ private:
     QStringListModel *m_copmleterModel;
     AboutWindow *m_aboutWindow;
     QStringList categories();
+    void loadAutoSaveSettings();
+    QTimer *m_timer;
 
 };
 

@@ -27,6 +27,12 @@ MainWindow::MainWindow(QWidget *parent) :
     m_completer = new QCompleter(m_copmleterModel, this);
     m_diagramCreator = new DiagramCreator(this);
     m_aboutWindow = 0;
+    m_timer = new QTimer(this);
+
+    loadAutoSaveSettings();
+    connect(m_timer, SIGNAL(timeout()),
+            this, SLOT(on_actionSave_triggered()));
+
     ui->graphicsView->setScene(m_diagramCreator->scene());
     ui->categoryEdit->setCompleter(m_completer);
     ui->searchEdit->setCompleter(m_completer);
@@ -43,6 +49,7 @@ MainWindow::~MainWindow()
     delete m_completer;
     delete m_diagramCreator;
     if(m_aboutWindow) delete m_aboutWindow;
+    delete m_timer;
 }
 
 void MainWindow::on_addButton_clicked()
@@ -164,6 +171,14 @@ QStringList MainWindow::categories()
     return list;
 }
 
+void MainWindow::loadAutoSaveSettings()
+{
+    QSettings settings;
+    if(settings.value("GeneralSettings/AutoSaveEnabled", "false").toBool())
+        m_timer->start(settings.value("GeneralSettings/AutoSaveMinutes").toInt() * 60000);
+    else m_timer->stop();
+}
+
 void MainWindow::showJobsHavingCategory(const QString &text)
 {
 #ifdef DEBUG
@@ -190,4 +205,13 @@ void MainWindow::on_actionNew_triggered()
 {
     m_tasks.clear();
     ui->listWidget->clear();
+}
+
+void MainWindow::on_actionSettings_triggered()
+{
+    SettingsWindow settingsWindow;
+    if(settingsWindow.exec() == QDialog::Accepted)
+    {
+        loadAutoSaveSettings();
+    }
 }

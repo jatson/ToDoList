@@ -4,9 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui webkitwidgets
 
 TARGET = ToDoList_qt
 TEMPLATE = app
@@ -17,19 +15,25 @@ SOURCES += main.cpp\
     fileoperator.cpp \
     task.cpp \
     diagramcreator.cpp \
-    aboutwindow.cpp
+    aboutwindow.cpp \
+    settingswindow.cpp
 
 HEADERS  += mainwindow.h \
     fileoperator.h \
     task.h \
     diagramcreator.h \
     defines.h \
-    aboutwindow.h
+    aboutwindow.h \
+    settingswindow.h
 
 FORMS    += mainwindow.ui \
-    aboutwindow.ui
+    aboutwindow.ui \
+    settingswindow.ui
 
 TRANSLATIONS = ToDoList_hu_HU.ts
 
 RESOURCES += \
     todolist.qrc
+
+DISTFILES += \
+    about.html
