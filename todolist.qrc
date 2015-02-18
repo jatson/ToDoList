@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ToDoList.ico</file>
+        <file>open-file.png</file>
+        <file>pignon.png</file>
+        <file>save.ico</file>
+        <file>new file.ico</file>
+    </qresource>
+</RCC>

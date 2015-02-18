@@ -30,3 +30,6 @@ FORMS    += mainwindow.ui \
     aboutwindow.ui
 
 TRANSLATIONS = ToDoList_hu_HU.ts
+
+RESOURCES += \
+    todolist.qrc

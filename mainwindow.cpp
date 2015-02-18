@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_copmleterModel = new QStringListModel(this);
     m_completer = new QCompleter(m_copmleterModel, this);
     m_diagramCreator = new DiagramCreator(this);
+    m_aboutWindow = 0;
     ui->graphicsView->setScene(m_diagramCreator->scene());
     ui->categoryEdit->setCompleter(m_completer);
     ui->searchEdit->setCompleter(m_completer);
@@ -183,4 +184,10 @@ void MainWindow::on_actionAbout_triggered()
     if(!m_aboutWindow) m_aboutWindow = new AboutWindow(this);
     m_aboutWindow->show(); // modeless window running
     //m_aboutWindow->exec(); // modal window running
+}
+
+void MainWindow::on_actionNew_triggered()
+{
+    m_tasks.clear();
+    ui->listWidget->clear();
 }

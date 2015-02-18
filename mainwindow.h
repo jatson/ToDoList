@@ -51,6 +51,8 @@ private slots:
 
     void on_actionAbout_triggered();
 
+    void on_actionNew_triggered();
+
 private:
     Ui::MainWindow *ui;
     FileOperator *m_fileOperator;
